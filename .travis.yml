@@ -7,11 +7,15 @@ julia:
   - nightly
 notifications:
   email: false
+addons:
+  apt:
+    sources:
+    - debian-sid
+    packages:
+    - opencl-headers
+    - amd-libopencl1
+sudo: false
 before_install:
-  - if [ `uname` = "Linux" ]; then
-      sudo apt-get update -qq -y;
-      sudo apt-get install -qq fglrx opencl-headers;
-    fi;
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 script:
   - julia -e 'Pkg.init(); Pkg.clone(pwd())'
